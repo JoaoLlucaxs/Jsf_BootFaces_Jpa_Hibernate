@@ -1,5 +1,9 @@
 package br.com.jsf;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -14,11 +18,31 @@ public class PessoaBean {
 	
 	private DaoGeneric<Pessoa> daoGeneric=new DaoGeneric<Pessoa>();
 	
+	private List<Pessoa> pessoas=new ArrayList<Pessoa>();
+	
 	public String salvar() {
-		daoGeneric.salvar(pessoa);
-		pessoa=new Pessoa(); // evitar erro ao salvar a próxima pessoa
+		pessoa=daoGeneric.merge(pessoa); // campo id amostra
+		carregarPessoas(); // chamando a lista após alteração
 		return ""; // ficar na mesma página
 	}
+	
+	public String novo() {
+		pessoa=new Pessoa();
+		return "";
+	}
+	
+	public String remove() {
+		daoGeneric.deletePorId(pessoa);
+		pessoa=new Pessoa();
+		carregarPessoas(); // chamando a lista após alteração
+		return "";
+	}
+	
+	@PostConstruct
+	public void carregarPessoas() {
+		pessoas=daoGeneric.getListEntity(Pessoa.class);
+	}
+	
 
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -26,6 +50,10 @@ public class PessoaBean {
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public List<Pessoa> getPessoas() {
+		return pessoas;
 	}
 	
 	

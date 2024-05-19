@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"> <!-- Ele não vem da web, e sim da dependencia do jsf no pom -->
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<!--"http://java.sun.com/jsf/html" Ele não vem da web, e sim da dependencia do jsf no pom -->
+	 <!-- suporte para jsf, prover várias funcionalidades extras-->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Olá jsf</title>
@@ -12,7 +16,7 @@
 		<h1>Olá JSF</h1>
 		
 		<h:outputLabel value="Id: "/>
-		<h:inputText value="#{pessoaBean.pessoa.id}"/>
+		<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true"/>
 		
 		<h:outputLabel value="Nome: "/>
 		<h:inputText value="#{pessoaBean.pessoa.nome}"/>
@@ -26,8 +30,41 @@
 		<h:inputText value="#{pessoaBean.pessoa.idade}"/> 
 		
 	
-		
+		<h:commandButton value="Novo" action="#{pessoaBean.novo()}"/>
 		<h:commandButton value="Adicionar" action="#{pessoaBean.salvar()}"/>
+		<h:commandButton value="Remover" action="#{pessoaBean.remove()}"/>
+		
+		<h:dataTable value="#{pessoaBean.pessoas}" var="p">
+		
+			<h:column headerClass="Id"> 
+				<h:outputText value="#{p.id}"/>
+			</h:column>
+			
+			<h:column headerClass="Nome">
+				<h:outputText value="#{p.nome}"/>
+			</h:column>
+			
+			<h:column headerClass="Sobrenome">
+				<h:outputText value="#{p.sobrenome}"/>
+			</h:column>
+			
+			<h:column headerClass="Idade">
+				<h:outputText value="#{p.idade}"/>
+			</h:column>
+			
+			
+			<h:column>
+				<h:commandLink value="Editar">
+					<f:setPropertyActionListener value="#{p}" target="#{pessoaBean.pessoa}"/>
+				</h:commandLink>
+			</h:column>
+			
+			<h:column>
+				<h:commandLink value="Excluir" action="#{pessoaBean.remove()}">
+					<f:setPropertyActionListener value="#{p}" target="#{pessoaBean.pessoa}"/>
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
 	</h:form>
 </body>
 </html>

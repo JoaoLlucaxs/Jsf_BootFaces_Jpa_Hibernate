@@ -19,4 +19,8 @@ public class JpaUtil {
 		public static EntityManager getEntityManager() {
 			return factory.createEntityManager();
 		}
+		
+		public static Object primaryKey(Object e) { // retornando o id da entidade
+			return factory.getPersistenceUnitUtil().getIdentifier(e);
+		}
 }
