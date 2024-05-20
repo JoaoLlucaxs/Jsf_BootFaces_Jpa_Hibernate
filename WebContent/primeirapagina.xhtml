@@ -52,11 +52,16 @@
 				<f:selectItem itemValue="JSF" />
 			</h:selectManyMenu>
 			
+			<h:outputLabel value="Ativo: "/>
+			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}"/>
+			
+		
 			<h:outputLabel/>
 			<h:panelGroup>
-				<h:commandButton value="Novo" action="#{pessoaBean.novo()}"/>
-				<h:commandButton value="Adicionar" action="#{pessoaBean.salvar()}"/>
-				<h:commandButton value="Remover" action="#{pessoaBean.remove()}"/>
+				<h:commandButton value="Novo" action="#{pessoaBean.novo()}" image="/resources/img/novo-documento.png" title="Novo"/>
+				<h:commandButton value="Adicionar" action="#{pessoaBean.salvar()}" image="/resources/img/adicionar.png" title="Salvar"/>
+				<h:commandButton value="Remover" action="#{pessoaBean.remove()}" image="/resources/img/remover.png" title="Remover"/>
+				<h:commandButton value="Limpar" type="reset" image="/resources/img/limpar-limpo.png" title="Limpar"/>
 			</h:panelGroup>
 		</h:panelGrid>
 		
@@ -89,15 +94,17 @@
 			
 			<h:column>
 			<f:facet name="header">Editar</f:facet>
-				<h:commandLink value="Editar">
+				<h:commandLink value="">
 					<f:setPropertyActionListener value="#{p}" target="#{pessoaBean.pessoa}"/>
+					<h:graphicImage value="/resources/img/editar.png" title="Editar"/>
 				</h:commandLink>
 			</h:column>
 			
 			<h:column>
 				<f:facet name="header">Excluir</f:facet>
-				<h:commandLink value="Excluir" action="#{pessoaBean.remove()}">
+				<h:commandLink value="" action="#{pessoaBean.remove()}">
 					<f:setPropertyActionListener value="#{p}" target="#{pessoaBean.pessoa}"/>
+					<h:graphicImage value="/resources/img/remover.png" title="Excluir"/>
 				</h:commandLink>
 			</h:column>
 			
