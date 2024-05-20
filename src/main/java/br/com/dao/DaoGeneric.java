@@ -28,7 +28,7 @@ public class DaoGeneric<E> {
 		
 			E retorno=	entityManager.merge(entidade);
 			transaction.commit(); // salvei no banco
-			entityManager.close();
+			
 			return retorno;
 		}
 	
